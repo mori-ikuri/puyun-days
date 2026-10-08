@@ -1,0 +1,24 @@
+---
+// 記事一覧ページ（/puyun-days/articles/）
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleList from '../../components/ArticleList.astro';
+import { articlesBySeries, withBase } from '../../lib/articles';
+
+const groups = articlesBySeries();
+---
+
+<BaseLayout title="記事一覧 | puyun-days" description="ぷゆん（Puyun）が note と DEV で公開した記事の一覧">
+  <p><a href={withBase('')}>← トップへ</a></p>
+  <h1>記事一覧</h1>
+
+  {groups.length === 0 && <p>まだ記事がありません。</p>}
+
+  {
+    groups.map((group) => (
+      <section>
+        <h2>{group.series}</h2>
+        <ArticleList items={group.items} />
+      </section>
+    ))
+  }
+</BaseLayout>

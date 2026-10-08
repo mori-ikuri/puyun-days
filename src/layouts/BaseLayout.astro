@@ -1,0 +1,40 @@
+---
+// 全ページ共通の外枠（<head> と基本の見た目）
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+---
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    line-height: 1.7;
+    color: #222;
+    background: #fff;
+  }
+  main {
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+  a {
+    color: #0b62c4;
+  }
+</style>

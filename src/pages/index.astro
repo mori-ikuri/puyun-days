@@ -1,4 +1,8 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleList from '../components/ArticleList.astro';
+import { articles, withBase } from '../lib/articles';
+
 // リンク集（ぷゆんの各サービスのプロフィールページ）
 const links = [
   { name: 'X', url: 'https://x.com/puyun_days' },
@@ -7,59 +11,39 @@ const links = [
   { name: 'DEV', url: 'https://dev.to/puyun_days' },
   { name: 'GitHub', url: 'https://github.com/mori-ikuri' },
 ];
+
+const latest = articles.slice(0, 3);
 ---
 
-<html lang="ja">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>puyun-days</title>
-    <meta name="description" content="ぷゆん（Puyun）の個人サイト" />
-  </head>
-  <body>
-    <main>
-      <h1>puyun-days</h1>
+<BaseLayout title="puyun-days" description="ぷゆん（Puyun）の個人サイト">
+  <h1>puyun-days</h1>
 
-      <section>
-        <h2>ぷゆんについて</h2>
-        <p>
-          こんにちは、ぷゆん（Puyun）です。<br />
-          日々つくったもの・書いたものを、ここに少しずつまとめていきます。
-        </p>
-      </section>
+  <section>
+    <h2>ぷゆんについて</h2>
+    <p>
+      こんにちは、ぷゆん（Puyun）です。<br />
+      日々つくったもの・書いたものを、ここに少しずつまとめていきます。
+    </p>
+  </section>
 
-      <section>
-        <h2>リンク</h2>
-        <ul>
-          {
-            links.map((link) => (
-              <li>
-                <a href={link.url} rel="noopener noreferrer">
-                  {link.name}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </section>
-    </main>
-  </body>
-</html>
+  <section>
+    <h2>最新の記事</h2>
+    {latest.length > 0 ? <ArticleList items={latest} /> : <p>まだ記事がありません。</p>}
+    <p><a href={withBase('articles/')}>記事一覧へ →</a></p>
+  </section>
 
-<style>
-  body {
-    margin: 0;
-    font-family: system-ui, sans-serif;
-    line-height: 1.7;
-    color: #222;
-    background: #fff;
-  }
-  main {
-    max-width: 40rem;
-    margin: 0 auto;
-    padding: 2rem 1rem;
-  }
-  a {
-    color: #0b62c4;
-  }
-</style>
+  <section>
+    <h2>リンク</h2>
+    <ul>
+      {
+        links.map((link) => (
+          <li>
+            <a href={link.url} rel="noopener noreferrer">
+              {link.name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>

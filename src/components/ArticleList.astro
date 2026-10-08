@@ -1,0 +1,39 @@
+---
+// 記事のリスト（タイトル＝元記事へのリンク・公開日・媒体）
+import { PLATFORM_LABEL, formatDate, type Article } from '../lib/articles';
+
+interface Props {
+  items: Article[];
+}
+const { items } = Astro.props;
+---
+
+<ul>
+  {
+    items.map((article) => (
+      <li>
+        <a href={article.url} rel="noopener noreferrer">
+          {article.title}
+        </a>
+        <span class="meta">
+          <time datetime={article.publishedAt}>{formatDate(article.publishedAt)}</time>
+          ・{PLATFORM_LABEL[article.platform]}
+        </span>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  ul {
+    padding-left: 1.2rem;
+  }
+  li {
+    margin-bottom: 0.6rem;
+  }
+  .meta {
+    display: block;
+    font-size: 0.85rem;
+    color: #666;
+  }
+</style>

@@ -4,6 +4,9 @@ dist/
 # generated types
 .astro/
 
+# sync temp file
+src/data/*.tmp
+
 # dependencies
 node_modules/
 
