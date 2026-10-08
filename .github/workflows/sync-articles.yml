@@ -40,21 +40,26 @@ jobs:
       - name: Install
         run: npm ci
 
-      - name: Sync articles
+      - name: Sync articles and activity repos
         run: npm run sync
+        env:
+          # GitHub API の回数制限を緩めるため（公開リポジトリの読み取りだけに使う）
+          GITHUB_TOKEN: ${{ github.token }}
 
-      - name: Commit and push if articles.json changed
+      - name: Commit and push if data changed
         id: commit
         run: |
-          if git diff --quiet -- src/data/articles.json; then
-            echo "articles.json に変更はありません。"
+          files=(src/data/articles.json src/data/activity-repos.json)
+          # git status は「まだ Git に入っていない新しいファイル」も検出できる
+          if [ -z "$(git status --porcelain -- "${files[@]}")" ]; then
+            echo "articles.json / activity-repos.json に変更はありません。"
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add src/data/articles.json
-          git commit -m 'Sync articles from note and DEV'
+          git add -- "${files[@]}"
+          git commit -m 'Sync articles and activity repos'
           # force push はしない。失敗したらこのステップ（とその日の実行）は失敗で終わる
           git push origin HEAD:main
           echo "changed=true" >> "$GITHUB_OUTPUT"

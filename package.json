@@ -10,7 +10,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "sync": "node scripts/sync-articles.mjs"
+    "sync": "npm run sync:articles && npm run sync:repos",
+    "sync:articles": "node scripts/sync-articles.mjs",
+    "sync:repos": "node scripts/sync-activity-repos.mjs"
   },
   "dependencies": {
     "astro": "^7.3.7"

@@ -1,0 +1,72 @@
+---
+// 活動ダッシュボード（/puyun-days/activities/）
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { activitiesByStatus, formatDay, lastUpdated, reviewedAt } from '../../lib/activities';
+import { withBase } from '../../lib/articles';
+
+const groups = activitiesByStatus();
+---
+
+<BaseLayout title="活動ダッシュボード | puyun-days" description="ぷゆん（Puyun）の活動の一覧（進行中・おやすみ中・完了）">
+  <p><a href={withBase('')}>← トップへ</a></p>
+  <h1>活動ダッシュボード</h1>
+  <p class="reviewed">最終確認日：<time datetime={reviewedAt}>{formatDay(reviewedAt)}</time></p>
+
+  {groups.length === 0 && <p>まだ活動がありません。</p>}
+
+  {
+    groups.map((group) => (
+      <section>
+        <h2>{group.label}</h2>
+        <ul>
+          {group.items.map((activity) => (
+            <li>
+              <strong>{activity.name}</strong>
+              <p class="summary">{activity.summary}</p>
+              <p class="meta">
+                最終更新日：<time datetime={lastUpdated(activity)}>{formatDay(lastUpdated(activity))}</time>
+                {activity.repo && (
+                  <>
+                    {' ・ '}
+                    <a href={`https://github.com/${activity.repo}`} rel="noopener noreferrer">
+                      GitHub
+                    </a>
+                  </>
+                )}
+                {activity.link && (
+                  <>
+                    {' ・ '}
+                    <a href={activity.link} rel="noopener noreferrer">
+                      関連ページ
+                    </a>
+                  </>
+                )}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
+</BaseLayout>
+
+<style>
+  .reviewed {
+    color: #666;
+    font-size: 0.9rem;
+  }
+  ul {
+    padding-left: 1.2rem;
+  }
+  li {
+    margin-bottom: 1rem;
+  }
+  .summary {
+    margin: 0;
+  }
+  .meta {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #666;
+  }
+</style>

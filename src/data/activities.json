@@ -1,0 +1,35 @@
+{
+  "reviewedAt": "2026-10-08",
+  "activities": [
+    {
+      "id": "puyun-days",
+      "name": "puyun-days",
+      "summary": "この個人サイト。noteとDEVの記事を毎朝自動で集めて並べています",
+      "status": "active",
+      "updatedAt": "2026-10-08",
+      "repo": "mori-ikuri/puyun-days"
+    },
+    {
+      "id": "upstream-proof",
+      "name": "UpstreamProof",
+      "summary": "OSSの本家にIssueからPRを出し、マージまで進める活動。.NET関連を中心に、理解しながら進めています",
+      "status": "active",
+      "updatedAt": "2026-10-08"
+    },
+    {
+      "id": "ai-only-proof",
+      "name": "AIOnlyProof",
+      "summary": "AIだけでOSS活動ができるかを試した実験。成長日記 #008 に記録しました",
+      "status": "done",
+      "updatedAt": "2026-10-08",
+      "link": "https://note.com/puyun_days/n/n1b89bee75713"
+    },
+    {
+      "id": "puyun-spinner",
+      "name": "Puyun Spinner",
+      "summary": "Claude Codeの待ち時間の表示を、自分好みに変えるMod",
+      "status": "done",
+      "updatedAt": "2026-10-08"
+    }
+  ]
+}
