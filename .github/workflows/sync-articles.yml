@@ -1,0 +1,73 @@
+name: Sync articles
+
+on:
+  schedule:
+    # 毎日 21:17 UTC = 日本時間 6:17（GitHub の混雑で数分〜数十分遅れることがある）
+    - cron: '17 21 * * *'
+  # GitHub の Actions タブから手動でも実行できる
+  workflow_dispatch:
+
+# 既定では権限なし。必要な権限はジョブごとに付ける
+permissions: {}
+
+# 取り込みが同時に2つ走らないようにする
+concurrency:
+  group: sync-articles
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    # main 以外のブランチから手動実行されたときは何もしない
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # articles.json の commit / push に必要
+    env:
+      ASTRO_TELEMETRY_DISABLED: 1
+    outputs:
+      changed: ${{ steps.commit.outputs.changed }}
+      sha: ${{ steps.commit.outputs.sha }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Sync articles
+        run: npm run sync
+
+      - name: Commit and push if articles.json changed
+        id: commit
+        run: |
+          if git diff --quiet -- src/data/articles.json; then
+            echo "articles.json に変更はありません。"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src/data/articles.json
+          git commit -m 'Sync articles from note and DEV'
+          # force push はしない。失敗したらこのステップ（とその日の実行）は失敗で終わる
+          git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+  # GITHUB_TOKEN での push では deploy.yml が起動しないため、ここから呼び出して公開する
+  deploy:
+    needs: sync
+    if: needs.sync.outputs.changed == 'true'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/deploy.yml
+    with:
+      ref: ${{ needs.sync.outputs.sha }}
