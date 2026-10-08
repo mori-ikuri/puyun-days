@@ -17,10 +17,11 @@ const NOTE_MAGAZINES = [
 const TITLE_RULES = [
   { series: '成長日記', includes: '成長日記' },
   { series: 'となりのnote', includes: 'となりのnote' },
+  { series: 'ぷゆん速報', includes: 'ぷゆん速報' },
 ];
 const DEV_API = 'https://dev.to/api/articles?username=puyun_days&per_page=100';
 
-const SERIES = ['成長日記', 'となりのnote', 'DEV', 'その他'];
+const SERIES = ['成長日記', 'となりのnote', 'ぷゆん速報', 'DEV', 'その他'];
 const PLATFORMS = ['note', 'dev'];
 
 async function fetchText(url) {

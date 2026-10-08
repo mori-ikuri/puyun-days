@@ -2,7 +2,7 @@
 import data from '../data/articles.json';
 
 export type Platform = 'note' | 'dev';
-export type Series = '成長日記' | 'となりのnote' | 'DEV' | 'その他';
+export type Series = '成長日記' | 'となりのnote' | 'ぷゆん速報' | 'DEV' | 'その他';
 
 export interface Article {
   title: string;
@@ -14,7 +14,7 @@ export interface Article {
 }
 
 // 一覧ページで見出しを並べる順番
-export const SERIES_ORDER: Series[] = ['成長日記', 'となりのnote', 'DEV', 'その他'];
+export const SERIES_ORDER: Series[] = ['成長日記', 'となりのnote', 'ぷゆん速報', 'DEV', 'その他'];
 
 export const PLATFORM_LABEL: Record<Platform, string> = {
   note: 'note',
