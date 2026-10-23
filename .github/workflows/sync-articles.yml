@@ -50,6 +50,9 @@ jobs:
         id: commit
         run: |
           files=(src/data/articles.json src/data/activity-repos.json)
+          if [ -d public/images/article-thumbnails ]; then
+            files+=(public/images/article-thumbnails)
+          fi
           # git status は「まだ Git に入っていない新しいファイル」も検出できる
           if [ -z "$(git status --porcelain -- "${files[@]}")" ]; then
             echo "articles.json / activity-repos.json に変更はありません。"

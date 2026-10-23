@@ -1,0 +1,21 @@
+---
+import { PLATFORM_LABEL, formatDate, withBase, type Article } from '../lib/articles';
+import { SERIES_DISPLAY } from '../lib/series';
+interface Props { article: Article }
+const { article } = Astro.props;
+const series = SERIES_DISPLAY[article.series];
+const platform = PLATFORM_LABEL[article.platform];
+// The sync/build validator admits only reviewed local paths, never remote images.
+const image = article.thumbnail ? withBase(article.thumbnail.path) : undefined;
+---
+<a class:list={['article-card', { 'has-thumbnail': !!image }]} data-series={series.key} href={article.url} rel="noopener noreferrer">
+  <div class="article-info">
+    <div class="article-meta"><span class="series-label">{series.label}</span><span class="platform">{platform}</span></div>
+    <h3>{article.title}</h3>
+    <div class="card-bottom"><time datetime={article.publishedAt}>{formatDate(article.publishedAt)}</time><span class="arrow" aria-hidden="true">↗</span></div>
+  </div>
+  <div class="article-media" aria-hidden="true">
+    {image && <img src={image} alt="" width="800" height="419" loading="lazy" decoding="async" />}
+    <span class="thumbnail-placeholder" hidden={!!image}><span>PUYUN DAYS</span><small>{platform}</small></span>
+  </div>
+</a>

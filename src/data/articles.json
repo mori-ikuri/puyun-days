@@ -85,7 +85,12 @@
     "platform": "note",
     "series": "その他",
     "publishedAt": "2026-10-17T11:00:00.000Z",
-    "hidden": false
+    "hidden": false,
+    "thumbnail": {
+      "path": "images/article-thumbnails/8ef37cdf4db119f751658bec2f975a5ae32d5cfcf4cd1d1c13c83a58ee33630a.png",
+      "sourceUrl": "https://assets.st-note.com/production/uploads/images/325399676/rectangle_large_type_2_090bad7aa37281bff7364df12c0a409a.png?width=800",
+      "sha256": "8ef37cdf4db119f751658bec2f975a5ae32d5cfcf4cd1d1c13c83a58ee33630a"
+    }
   },
   {
     "title": "「行く勇気」と「話しかける勇気」。｜婚活パーティ20回以上なIROHAさんをご紹介。",
@@ -93,15 +98,25 @@
     "platform": "note",
     "series": "となりのnote",
     "publishedAt": "2026-10-17T02:17:22.000Z",
-    "hidden": false
+    "hidden": false,
+    "thumbnail": {
+      "path": "images/article-thumbnails/6cc6f49cab07c7f19174ca2508cae1ed5d4f631d9d8c34283f718ff7e6e138e8.png",
+      "sourceUrl": "https://assets.st-note.com/production/uploads/images/325248699/rectangle_large_type_2_adcb23bbeb8346a8953a0de68c8c3f38.png?width=800",
+      "sha256": "6cc6f49cab07c7f19174ca2508cae1ed5d4f631d9d8c34283f718ff7e6e138e8"
+    }
   },
   {
     "title": "AIと話していたら、ヘッドセットからサイレンが鳴った。【道草#001】",
     "url": "https://note.com/puyun_days/n/neefe8ed4a9c7",
     "platform": "note",
-    "series": "その他",
+    "series": "ぷゆんの道草",
     "publishedAt": "2026-10-16T12:25:22.000Z",
-    "hidden": false
+    "hidden": false,
+    "thumbnail": {
+      "path": "images/article-thumbnails/722a919d1f671f182a2fea5b0c72953ff7102a54c6b85a2a6a414b8dbd66922d.png",
+      "sourceUrl": "https://assets.st-note.com/production/uploads/images/325087696/rectangle_large_type_2_45432bbcb9a9aea97a074d8488264453.png?width=800",
+      "sha256": "722a919d1f671f182a2fea5b0c72953ff7102a54c6b85a2a6a414b8dbd66922d"
+    }
   },
   {
     "title": "スマホが震えるだけで、そわそわする。｜そんな恋愛小説を書くルナリィさんをご紹介。",
@@ -125,7 +140,12 @@
     "platform": "note",
     "series": "成長日記",
     "publishedAt": "2026-10-14T11:00:00.000Z",
-    "hidden": false
+    "hidden": false,
+    "thumbnail": {
+      "path": "images/article-thumbnails/2185f54ab3f863e68a2e14dbf9096dfa0ca1775ab2794e618dc6b4d147b93c53.png",
+      "sourceUrl": "https://assets.st-note.com/production/uploads/images/325525030/rectangle_large_type_2_b02632f4d24df5e01a40250b576167c3.png?width=800",
+      "sha256": "2185f54ab3f863e68a2e14dbf9096dfa0ca1775ab2794e618dc6b4d147b93c53"
+    }
   },
   {
     "title": "読書感想文の宛先は、ミミズでした。｜檻の中から手紙やら種やら。バクさんをご紹介。",
@@ -149,7 +169,12 @@
     "platform": "note",
     "series": "成長日記",
     "publishedAt": "2026-10-11T23:00:00.000Z",
-    "hidden": false
+    "hidden": false,
+    "thumbnail": {
+      "path": "images/article-thumbnails/101565abeee9f9e00327d10459c4a87343d66066eb95aed4415bbc2d6529c997.png",
+      "sourceUrl": "https://assets.st-note.com/production/uploads/images/323365688/rectangle_large_type_2_c2ba89ea51353bab34b6bd4465ff3c39.png?width=800",
+      "sha256": "101565abeee9f9e00327d10459c4a87343d66066eb95aed4415bbc2d6529c997"
+    }
   },
   {
     "title": "フォロワー100人になったあと、まず何を書こう。｜おいらの師匠!! いとさんをご紹介。",
@@ -173,7 +198,12 @@
     "platform": "note",
     "series": "成長日記",
     "publishedAt": "2026-10-10T11:00:00.000Z",
-    "hidden": false
+    "hidden": false,
+    "thumbnail": {
+      "path": "images/article-thumbnails/4365fde81cf32493bfb88503283deefcd2b08c52e798feb050d2b53d7a52f3c8.png",
+      "sourceUrl": "https://assets.st-note.com/production/uploads/images/322778745/rectangle_large_type_2_ed3ce870735acdfc36b14aae0f68f1b4.png?width=800",
+      "sha256": "4365fde81cf32493bfb88503283deefcd2b08c52e798feb050d2b53d7a52f3c8"
+    }
   },
   {
     "title": "ここにきて「はじめてのnote」？いいえ、「いまさらなnote」です。｜ぷゆんの成長日記 #010",
@@ -181,7 +211,12 @@
     "platform": "note",
     "series": "成長日記",
     "publishedAt": "2026-10-10T01:00:00.000Z",
-    "hidden": false
+    "hidden": false,
+    "thumbnail": {
+      "path": "images/article-thumbnails/ad9c63618f8d7845bfcb88482db361da2a2a7762b1d1b52ba362bc3a6be9e565.png",
+      "sourceUrl": "https://assets.st-note.com/production/uploads/images/324731583/rectangle_large_type_2_bf947e87e8d21ffe68e5cd22d965f02f.png?width=800",
+      "sha256": "ad9c63618f8d7845bfcb88482db361da2a2a7762b1d1b52ba362bc3a6be9e565"
+    }
   },
   {
     "title": "少し外れてみたら、地面があった｜泳ぐだけじゃない。そんな人生。南満月さんをご紹介。",

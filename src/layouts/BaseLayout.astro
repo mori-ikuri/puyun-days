@@ -1,40 +1,50 @@
 ---
-// 全ページ共通の外枠（<head> と基本の見た目）
-interface Props {
-  title: string;
-  description: string;
-}
-const { title, description } = Astro.props;
+import '../styles/site.css';
+import '../styles/cards.css';
+import { withBase } from '../lib/articles';
+interface Props { title: string; description: string; current: 'home' | 'articles' | 'activities'; mainClass?: string }
+const { title, description, current, mainClass } = Astro.props;
+const pages = [
+  { key: 'home', label: 'ホーム', path: '' },
+  { key: 'articles', label: '記事一覧', path: 'articles/' },
+  { key: 'activities', label: '活動', path: 'activities/' },
+];
+const links = [
+  { name: 'X', url: 'https://x.com/puyun_days' },
+  { name: 'Threads', url: 'https://www.threads.com/@puyun_days' },
+  { name: 'note', url: 'https://note.com/puyun_days' },
+  { name: 'DEV', url: 'https://dev.to/puyun_days' },
+  { name: 'GitHub', url: 'https://github.com/mori-ikuri' },
+];
 ---
-
+<!doctype html>
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="color-scheme" content="light" />
     <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="icon" href="data:," />
   </head>
   <body>
-    <main>
-      <slot />
-    </main>
+    <a class="skip-link" href="#main">本文へ移動</a>
+    <header class="site-header wrap">
+      <a class="wordmark" href={withBase('')} aria-label="PUYUN DAYS ホーム">PUYUN<span>DAYS.</span></a>
+      <nav class="site-nav" aria-label="メインナビゲーション">
+        {pages.map(page => <a href={withBase(page.path)} aria-current={current === page.key ? 'page' : undefined}>{page.label}</a>)}
+      </nav>
+    </header>
+    <main id="main" class={mainClass}><slot /></main>
+    <footer class="site-footer wrap">
+      <div class="footer-top">
+        <a class="wordmark" href={withBase('')} aria-label="PUYUN DAYS ホーム">PUYUN<span>DAYS.</span></a>
+        <nav class="social-links" aria-label="ぷゆんのリンク集">
+          {links.map(link => <a href={link.url} rel="noopener noreferrer">{link.name}<span aria-hidden="true">↗</span></a>)}
+        </nav>
+      </div>
+      <div class="footer-bottom"><span>© PUYUN DAYS</span><button class="motion-control" data-motion-toggle aria-pressed="false">動きを止める</button></div>
+    </footer>
+    <script>import '../scripts/site';</script>
   </body>
 </html>
-
-<style is:global>
-  body {
-    margin: 0;
-    font-family: system-ui, sans-serif;
-    line-height: 1.7;
-    color: #222;
-    background: #fff;
-  }
-  main {
-    max-width: 40rem;
-    margin: 0 auto;
-    padding: 2rem 1rem;
-  }
-  a {
-    color: #0b62c4;
-  }
-</style>

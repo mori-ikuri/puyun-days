@@ -1,54 +1,15 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ArticleList from '../components/ArticleList.astro';
+import ArticleCard from '../components/ArticleCard.astro';
 import { articles, withBase } from '../lib/articles';
-
-// リンク集（ぷゆんの各サービスのプロフィールページ）
-const links = [
-  { name: 'X', url: 'https://x.com/puyun_days' },
-  { name: 'Threads', url: 'https://www.threads.com/@puyun_days' },
-  { name: 'note', url: 'https://note.com/puyun_days' },
-  { name: 'DEV', url: 'https://dev.to/puyun_days' },
-  { name: 'GitHub', url: 'https://github.com/mori-ikuri' },
-];
-
-const latest = articles.slice(0, 3);
+const latest = articles.slice(0, 6);
 ---
+<BaseLayout title="PUYUN DAYS | ぷゆんの日々" description="ぷゆん（Puyun）が日々つくったもの・書いたものをまとめる個人サイト" current="home">
 
-<BaseLayout title="puyun-days" description="ぷゆん（Puyun）の個人サイト">
-  <h1>puyun-days</h1>
-
-  <section>
-    <h2>ぷゆんについて</h2>
-    <p>
-      こんにちは、ぷゆん（Puyun）です。<br />
-      日々つくったもの・書いたものを、ここに少しずつまとめていきます。
-    </p>
-  </section>
-
-  <section>
-    <h2>最新の記事</h2>
-    {latest.length > 0 ? <ArticleList items={latest} /> : <p>まだ記事がありません。</p>}
-    <p><a href={withBase('articles/')}>記事一覧へ →</a></p>
-  </section>
-
-  <section>
-    <h2>活動</h2>
-    <p><a href={withBase('activities/')}>活動ダッシュボードへ →</a></p>
-  </section>
-
-  <section>
-    <h2>リンク</h2>
-    <ul>
-      {
-        links.map((link) => (
-          <li>
-            <a href={link.url} rel="noopener noreferrer">
-              {link.name}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
+<section class="hero wrap" aria-labelledby="home-title"><div class="hero-topline"><span class="eyebrow">PUYUN'S PERSONAL WEBSITE</span><span class="eyebrow">つくる。書く。日々を、ここに。</span></div>
+<div class="hero-grid"><h1 class="hero-title display" id="home-title"><span>PUYUN</span><span>DAYS.</span></h1><div class="hero-art"><svg class="orbit-badge" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="badge-path" d="M60,60 m-43,0 a43,43 0 1,1 86,0 a43,43 0 1,1 -86,0"/></defs><circle cx="60" cy="60" r="58"/><text><textPath href="#badge-path">HELLO! • PUYUN DAYS • HELLO! • PUYUN DAYS • </textPath></text><text x="60" y="74" text-anchor="middle" style="font-size:38px;letter-spacing:0">✳</text></svg><img src={withBase('images/puyun/puyun-greeting.png')} alt="丸メガネと黄色のパーカー姿で、元気に手を振るぷゆん" width="1254" height="1254" fetchpriority="high"></div></div>
+<div class="hero-footer"><p class="intro"><strong>こんにちは、ぷゆん（Puyun）です。</strong>日々つくったもの・書いたものを、<br>ここに少しずつまとめていきます。</p><div class="actions"><a class="button button-primary" href={withBase('articles/')}>記事を読む<span class="arrow" aria-hidden="true">→</span></a><a class="button" href={withBase('activities/')}>活動を見る<span class="arrow" aria-hidden="true">→</span></a></div></div></section>
+<div class="ticker" aria-hidden="true"><div class="ticker-track"><span>PUYUN DAYS <i>✳</i> ARTICLES <i>↗</i> ACTIVITIES <i>✳</i> PUYUN DAYS <i>↗</i> ARTICLES <i>✳</i> ACTIVITIES <i>↗</i></span><span>PUYUN DAYS <i>✳</i> ARTICLES <i>↗</i> ACTIVITIES <i>✳</i> PUYUN DAYS <i>↗</i> ARTICLES <i>✳</i> ACTIVITIES <i>↗</i></span></div></div>
+<section class="section wrap" aria-labelledby="latest-title"><div class="section-heading"><div><span class="eyebrow"><span class="number">01 /</span> LATEST ARTICLES</span><h2 id="latest-title">最近書いたもの。</h2></div><div class="rail-tools"><div class="rail-buttons"><button class="circle-button" data-rail-direction="-1" aria-controls="latest-articles" aria-label="前の記事へ">←</button><button class="circle-button" data-rail-direction="1" aria-controls="latest-articles" aria-label="次の記事へ">→</button></div><a class="text-link" href={withBase('articles/')}>すべての記事<span class="arrow" aria-hidden="true">→</span></a></div></div><p id="article-rail-help" class="sr-only">横にスクロールできます。左右キー、Home・Endキー、タッチ、マウスドラッグ、送りボタンが使えます。</p><div id="latest-articles" class="article-rail" tabindex="0" role="region" aria-label="最近の記事" aria-describedby="article-rail-help">{latest.map(article => <ArticleCard article={article} />)}</div></section>
+<div class="home-lower wrap"><section class="today" aria-labelledby="today-title"><div><span class="eyebrow">02 / TODAY'S PUYUN</span><h2 id="today-title">きょうの<br>ぷゆん。</h2></div><img src={withBase('images/puyun/puyun-today-default.png')} alt="のんびり座って微笑むぷゆん" width="1254" height="1254" loading="lazy"><span class="today-label">PUYUN DAYS</span></section><section class="activity-invite" aria-labelledby="activity-invite-title"><span class="eyebrow"><span class="status-dot" aria-hidden="true"></span>03 / ACTIVITIES</span><h2 id="activity-invite-title">つくっていること。<br>やってきたこと。</h2><a class="text-link" href={withBase('activities/')}>活動ダッシュボード<span class="arrow" aria-hidden="true">→</span></a></section></div>
 </BaseLayout>

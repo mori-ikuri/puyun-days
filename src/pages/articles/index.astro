@@ -1,24 +1,30 @@
 ---
-// 記事一覧ページ（/puyun-days/articles/）
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import ArticleList from '../../components/ArticleList.astro';
-import { articlesBySeries, withBase } from '../../lib/articles';
-
+import ArticleCard from '../../components/ArticleCard.astro';
+import { articles, articlesBySeries, SERIES_ORDER, withBase } from '../../lib/articles';
+import { SERIES_DISPLAY } from '../../lib/series';
 const groups = articlesBySeries();
+const counts = new Map(groups.map(group => [group.series, group.items.length]));
 ---
-
-<BaseLayout title="記事一覧 | puyun-days" description="ぷゆん（Puyun）が note と DEV で公開した記事の一覧">
-  <p><a href={withBase('')}>← トップへ</a></p>
-  <h1>記事一覧</h1>
-
-  {groups.length === 0 && <p>まだ記事がありません。</p>}
-
-  {
-    groups.map((group) => (
-      <section>
-        <h2>{group.series}</h2>
-        <ArticleList items={group.items} />
-      </section>
-    ))
-  }
+<BaseLayout title="記事一覧 | PUYUN DAYS" description="ぷゆん（Puyun）がnoteとDEVで公開した記事の一覧" current="articles" mainClass="archive wrap">
+  <header class="page-hero">
+    <div><span class="eyebrow">THE WRITING ARCHIVE</span><h1 class="display">ARTICLES.</h1><p class="jp-title">記事一覧</p></div>
+    <div class="page-art"><img src={withBase('images/puyun/puyun-guide-pointing.png')} alt="右を指さして記事を案内するぷゆん" width="1254" height="1254" /></div>
+  </header>
+  <nav class="filters" aria-label="記事をシリーズで絞り込む">
+    <button class="filter" data-series-filter="all" aria-pressed="true" aria-controls="article-groups">すべて<span>{articles.length}</span></button>
+    {SERIES_ORDER.map(series => <button class="filter" data-series-filter={series} data-filter-label={SERIES_DISPLAY[series].label} data-series={SERIES_DISPLAY[series].key} aria-pressed="false" aria-controls="article-groups">{SERIES_DISPLAY[series].label}<span>{counts.get(series) ?? 0}</span></button>)}
+  </nav>
+  <p class="article-count" aria-live="polite" aria-atomic="true" data-article-count>すべての記事 · {articles.length}件</p>
+  <div id="article-groups">
+    {groups.map(group => {
+      const display = SERIES_DISPLAY[group.series];
+      const index = SERIES_ORDER.indexOf(group.series);
+      return <section class="series-section" data-series-group={group.series} data-series={display.key} aria-labelledby={`series-${display.key}`}>
+        <div class="series-heading"><span class="series-number">{String(index + 1).padStart(2,'0')}</span><h2 id={`series-${display.key}`}>{display.label}</h2><span class="series-total">{group.items.length} ARTICLES</span></div>
+        <div class="articles-grid">{group.items.map(article => <ArticleCard article={article} />)}</div>
+      </section>;
+    })}
+    <p class="filter-empty" data-filter-empty hidden={articles.length > 0}>このシリーズの記事はまだありません。</p>
+  </div>
 </BaseLayout>

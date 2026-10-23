@@ -12,7 +12,9 @@
     "preview": "astro preview",
     "sync": "npm run sync:articles && npm run sync:repos",
     "sync:articles": "node scripts/sync-articles.mjs",
-    "sync:repos": "node scripts/sync-activity-repos.mjs"
+    "sync:repos": "node scripts/sync-activity-repos.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "prebuild": "node scripts/verify-public-assets.mjs"
   },
   "dependencies": {
     "astro": "^7.3.7"

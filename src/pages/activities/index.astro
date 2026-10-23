@@ -1,72 +1,36 @@
 ---
-// 活動ダッシュボード（/puyun-days/activities/）
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { activitiesByStatus, formatDay, lastUpdated, reviewedAt } from '../../lib/activities';
 import { withBase } from '../../lib/articles';
-
 const groups = activitiesByStatus();
+const items = groups.flatMap(group => group.items);
+const labels = { active: '進行中', paused: 'おやすみ中', done: '完了' };
+const english = { active: 'IN PROGRESS', paused: 'ON A BREAK', done: 'COMPLETED' };
 ---
-
-<BaseLayout title="活動ダッシュボード | puyun-days" description="ぷゆん（Puyun）の活動の一覧（進行中・おやすみ中・完了）">
-  <p><a href={withBase('')}>← トップへ</a></p>
-  <h1>活動ダッシュボード</h1>
-  <p class="reviewed">最終確認日：<time datetime={reviewedAt}>{formatDay(reviewedAt)}</time></p>
-
+<BaseLayout title="活動ダッシュボード | PUYUN DAYS" description="ぷゆん（Puyun）の活動の一覧（進行中・おやすみ中・完了）" current="activities" mainClass="wrap">
+  <header class="page-hero dashboard-hero">
+    <div><span class="eyebrow">THE MAKING &amp; DOING</span><h1 class="display">ACTIVITIES.</h1><p class="jp-title">活動ダッシュボード</p></div>
+    <div class="dashboard-stats" aria-label="活動件数">
+      {(['active', 'done'] as const).map(status => <div class="page-stat">{String(items.filter(item => item.status === status).length).padStart(2,'0')}<small>{labels[status]}</small></div>)}
+    </div>
+  </header>
+  <p class="reviewed">最終確認日 <time datetime={reviewedAt}>{formatDay(reviewedAt)}</time></p>
   {groups.length === 0 && <p>まだ活動がありません。</p>}
-
-  {
-    groups.map((group) => (
-      <section>
-        <h2>{group.label}</h2>
-        <ul>
-          {group.items.map((activity) => (
-            <li>
-              <strong>{activity.name}</strong>
-              <p class="summary">{activity.summary}</p>
-              <p class="meta">
-                最終更新日：<time datetime={lastUpdated(activity)}>{formatDay(lastUpdated(activity))}</time>
-                {activity.repo && (
-                  <>
-                    {' ・ '}
-                    <a href={`https://github.com/${activity.repo}`} rel="noopener noreferrer">
-                      GitHub
-                    </a>
-                  </>
-                )}
-                {activity.link && (
-                  <>
-                    {' ・ '}
-                    <a href={activity.link} rel="noopener noreferrer">
-                      関連ページ
-                    </a>
-                  </>
-                )}
-              </p>
-            </li>
-          ))}
-        </ul>
-      </section>
-    ))
-  }
+  {groups.map(group => {
+    const status = group.items[0].status;
+    return <section class:list={['activity-section', { 'done-section': status === 'done' }]} aria-labelledby={`${status}-title`}>
+      <div class="activity-section-heading">
+        <div><span class="eyebrow"><span class="status-dot" aria-hidden="true">{status === 'done' ? '✓' : ''}</span>{english[status]}</span><h2 id={`${status}-title`}>{group.label}<small>{group.items.length}件</small></h2></div>
+        <img src={withBase(`images/puyun/${status === 'done' ? 'puyun-celebrating' : 'puyun-thinking'}.png`)} alt={status === 'done' ? '両手を上げて大喜びするぷゆん' : '首をかしげて考え中のぷゆん'} width="1254" height="1254" loading="lazy" />
+      </div>
+      <div class="activity-grid">{group.items.map(activity => <article class="activity-card" data-activity-id={activity.id} data-status={activity.status}>
+        <div class="activity-card-top"><span class="activity-id">PROJECT / {String(items.indexOf(activity)+1).padStart(2,'0')}</span><span class="status-tag">{group.label}</span></div>
+        <h3>{activity.name}</h3><p class="activity-summary">{activity.summary}</p>
+        <div class="activity-card-bottom"><span>最終更新 <time datetime={lastUpdated(activity)}>{formatDay(lastUpdated(activity))}</time></span><span class="activity-links">
+          {activity.repo && <a href={`https://github.com/${activity.repo}`} rel="noopener noreferrer">GitHubで見る<span class="arrow" aria-hidden="true">↗</span></a>}
+          {activity.link && <a href={activity.link} rel="noopener noreferrer">記録を読む<span class="arrow" aria-hidden="true">↗</span></a>}
+        </span></div>
+      </article>)}</div>
+    </section>;
+  })}
 </BaseLayout>
-
-<style>
-  .reviewed {
-    color: #666;
-    font-size: 0.9rem;
-  }
-  ul {
-    padding-left: 1.2rem;
-  }
-  li {
-    margin-bottom: 1rem;
-  }
-  .summary {
-    margin: 0;
-  }
-  .meta {
-    margin: 0;
-    font-size: 0.85rem;
-    color: #666;
-  }
-</style>

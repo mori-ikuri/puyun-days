@@ -22,3 +22,6 @@ npm-debug.log*
 Thumbs.db
 .vscode/
 .idea/
+
+# Private production records are kept outside this repository.
+/design/

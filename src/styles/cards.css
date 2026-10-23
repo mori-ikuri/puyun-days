@@ -1,0 +1,120 @@
+/* Shared series palette and split card structure: home, archive, filters, review. */
+[data-series="growth"]{
+  --series-color:#253F62;
+  --series-tint:#DEE5E8}
+  [data-series="neighbor"]{
+    --series-color:#97432B;
+    --series-tint:#F1D9C5}
+    [data-series="michikusa"]{
+      --series-color:#31533C;
+      --series-tint:#DEE7C8}
+      [data-series="news"]{
+        --series-color:#725435;
+        --series-tint:#E8DDC9}
+        [data-series="dev"]{
+          --series-color:#59645D;
+          --series-tint:#E5E3D7}
+          [data-series="other"]{
+            --series-color:#595F50;
+            --series-tint:#E9E3D5}
+            .article-card{
+              --info-tint:color-mix(in srgb,var(--surface) 45%,var(--series-tint) 55%);
+              padding:0;
+              min-height:0;
+              display:grid;
+              grid-template-rows:1fr auto;
+              min-width:0;
+              background:var(--info-tint)}
+              .article-rail .article-card{
+                min-height:0}
+                .article-card::before{
+                  height:4px;
+                  z-index:1}
+                  .article-info{
+                    display:flex;
+                    flex-direction:column;
+                    padding:22px 22px 17px;
+                    min-height:170px;
+                    min-width:0;
+                    background:var(--info-tint)}
+                    .article-card .article-meta{
+                      gap:8px}
+                      .article-card .series-label{
+                        color:var(--series-color);
+                        font-size:11px;
+                        line-height:1.5}
+                        .article-card .series-label::before{
+                          width:6px;
+                          height:6px;
+                          border:0;
+                          border-radius:50%}
+                          .article-card .platform{
+                            color:var(--ink);
+                            flex-shrink:0}
+                            .article-card h3{
+                              font-size:17px;
+                              line-height:1.6;
+                              letter-spacing:-.02em;
+                              margin:14px 0 17px;
+                              font-weight:800}
+                              .article-card .card-bottom{
+                                color:var(--ink);
+                                min-height:22px}
+                                .article-card .card-bottom .arrow{
+                                  font-size:20px}
+                                  .article-media{
+                                    position:relative;
+                                    aspect-ratio:800/419;
+                                    width:100%;
+                                    overflow:hidden;
+                                    border-top:1px solid var(--line);
+                                    background:var(--series-tint)}
+                                    .article-media img{
+                                      position:absolute;
+                                      inset:0;
+                                      width:100%;
+                                      height:100%;
+                                      object-fit:cover;
+                                      object-position:center}
+                                      .thumbnail-placeholder{
+                                        position:absolute;
+                                        inset:0;
+                                        display:flex;
+                                        flex-direction:column;
+                                        align-items:center;
+                                        justify-content:center;
+                                        gap:6px;
+                                        color:var(--series-color);
+                                        background:color-mix(in srgb,var(--surface) 70%,var(--series-tint) 30%)}
+                                        .thumbnail-placeholder>span{
+                                          font-size:13px;
+                                          letter-spacing:.16em;
+                                          font-weight:800}
+                                          .thumbnail-placeholder small{
+                                            font-size:10px;
+                                            letter-spacing:.06em}
+                                            .series-number{
+                                              background:var(--series-tint);
+                                              color:var(--series-color)}
+                                              .filter[data-series]::before{
+                                                content:"";
+                                                width:6px;
+                                                height:6px;
+                                                flex-shrink:0;
+                                                background:var(--series-color)}
+                                                .filter[data-series][aria-pressed=true]{
+                                                  background:var(--series-color);
+                                                  color:var(--surface);
+                                                  border-color:var(--series-color)}
+                                                  .filter[data-series][aria-pressed=true]::before{
+                                                    background:var(--series-tint)}
+                                                    .filter span{
+                                                      opacity:1}
+                                                      @media(max-width:760px){
+                                                        .article-info{
+                                                          padding:21px 19px 16px;
+                                                          min-height:184px}
+                                                          .article-card h3{
+                                                            font-size:17px;
+                                                            margin:13px 0 16px}
+                                                          }
